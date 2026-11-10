@@ -3,6 +3,7 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {presentationTool} from 'sanity/presentation'
 
+import {resolve} from './presentation/resolve'
 import {schemaTypes} from './schemas'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
@@ -16,6 +17,7 @@ export default defineConfig({
   plugins: [
     structureTool(),
     presentationTool({
+      resolve,
       previewUrl: {
         origin: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173',
         previewMode: {

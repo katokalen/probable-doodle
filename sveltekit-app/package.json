@@ -14,8 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sanity/image-url": "^2.0.3",
-    "groq": "^6.23.0"
+    "@sanity/image-url": "^2.0.3"
   },
   "devDependencies": {
     "@portabletext/svelte": "^3.0.1",
