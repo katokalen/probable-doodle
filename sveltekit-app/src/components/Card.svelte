@@ -11,7 +11,7 @@
     <img
       class="card__cover"
       src={urlFor(post.mainImage).width(500).height(300).url()}
-      alt="Cover image for {post.title}"
+      alt={post.mainImage.alt ?? `Cover image for ${post.title}`}
     />
   {:else}
     <div class="card__cover--none"></div>

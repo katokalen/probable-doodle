@@ -16,8 +16,8 @@
     {#if post.mainImage}
       <img
         class="post__cover"
-        src={urlFor(post.mainImage).url()}
-        alt="Cover image for {post.title}"
+        src={urlFor(post.mainImage).width(1500).height(760).url()}
+        alt={post.mainImage.alt ?? `Cover image for ${post.title}`}
       />
     {:else}
       <div class="post__cover--none"></div>
