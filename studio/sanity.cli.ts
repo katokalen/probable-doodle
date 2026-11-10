@@ -15,8 +15,11 @@ export default defineCliConfig({
     projectId,
     dataset,
   },
-  studioHost: process.env.SANITY_STUDIO_STUDIO_HOST || '', // Visit https://www.sanity.io/docs/environment-variables to leanr more about using environment variables for local & production.
-  deployment: {autoUpdates: true},
+  deployment: {
+    // Assigned by Sanity on the first deploy; until it's set, `sanity deploy` needs `--url`
+    appId: process.env.SANITY_STUDIO_APP_ID,
+    autoUpdates: true,
+  },
   // Both run on `sanity dev` and `sanity build`. Types land in the SvelteKit app, which owns the queries.
   schemaExtraction: {enabled: true, enforceRequiredFields: true},
   typegen: {

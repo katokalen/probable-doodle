@@ -1,6 +1,7 @@
 {
   "name": "blah",
   "version": "1.0.0",
+  "type": "module",
   "devDependencies": {
     "@eslint/compat": "^2.0.1",
     "@eslint/js": "^9.39.2",

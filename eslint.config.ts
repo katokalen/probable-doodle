@@ -5,14 +5,12 @@ import globals from 'globals'
 import js from '@eslint/js'
 import path from 'node:path'
 import prettier from 'eslint-config-prettier'
-import {createRequire} from 'node:module'
+import studio from '@sanity/eslint-config-studio'
 
 import svelte from 'eslint-plugin-svelte'
 import tseslint from 'typescript-eslint'
 
 import type {Linter} from 'eslint'
-
-const studio = createRequire(import.meta.url)('@sanity/eslint-config-studio') as Linter.Config[]
 
 import appSvelteConfig from './sveltekit-app/svelte.config.js'
 
@@ -29,7 +27,11 @@ export default defineConfig(
       'svelte.config.js',
       '**/sanity.cli.ts',
       '**/*.config.js',
+      '**/*.config.cjs',
       '**/*.config.ts',
+      '**/.svelte-kit/',
+      '**/.sanity/',
+      '**/dist/',
     ],
   },
   // Base JS + TS
@@ -64,8 +66,12 @@ export default defineConfig(
       },
     },
   },
-  // Studio config
-  ...studio,
+  // Studio config. Several of its entries have no `files`, which would put its React rules on the
+  // Svelte app too, so every entry is scoped to studio/
+  ...studio.map((config: Linter.Config) => ({
+    ...config,
+    files: (config.files ?? ['**/*.{js,mjs,cjs,ts,jsx,tsx}']).map((glob) => `studio/${glob}`),
+  })),
 
   // Repo rules
   {
