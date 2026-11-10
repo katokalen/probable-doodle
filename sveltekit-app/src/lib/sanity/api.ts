@@ -6,7 +6,7 @@ import {
 } from '$env/static/public'
 
 export function assertEnvVar<T>(value: T | undefined, name: string): T {
-  if (value === undefined) {
+  if (value === undefined || value === '') {
     throw new Error(`Missing environment variable: ${name}`)
   }
   return value
