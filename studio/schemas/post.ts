@@ -1,14 +1,17 @@
+import {DocumentTextIcon} from '@sanity/icons/DocumentText'
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
+  icon: DocumentTextIcon,
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -33,6 +36,13 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+        }),
+      ],
     }),
     defineField({
       name: 'body',
@@ -43,12 +53,7 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
       media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
     },
   },
 })

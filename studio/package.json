@@ -15,6 +15,7 @@
     "start": "sanity start"
   },
   "dependencies": {
+    "@sanity/icons": "^5.3.0",
     "@sanity/vision": "^6.23.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
