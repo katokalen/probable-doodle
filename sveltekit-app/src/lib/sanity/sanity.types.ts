@@ -197,44 +197,42 @@ export type AllSanitySchemaTypes =
 
 // Source: ../sveltekit-app/src/lib/sanity/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug][0]
+// Query: *[_type == "post" && slug.current == $slug][0]{  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  excerpt,  mainImage,  body}
 export type PostQueryResult = {
   _id: string
   _type: 'post'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
-  slug: Slug
-  excerpt?: string
-  mainImage?: {
+  title: string | null
+  excerpt: string | null
+  mainImage: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
-  }
-  body?: BlockContent
+  } | null
+  body: BlockContent | null
 } | null
 
 // Source: ../sveltekit-app/src/lib/sanity/queries.ts
 // Variable: postsQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)
+// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc){  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  slug,  excerpt,  mainImage}
 export type PostsQueryResult = Array<{
   _id: string
   _type: 'post'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
+  title: string | null
   slug: Slug
-  excerpt?: string
-  mainImage?: {
+  excerpt: string | null
+  mainImage: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
-  }
-  body?: BlockContent
+  } | null
 }>
