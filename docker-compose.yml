@@ -1,0 +1,34 @@
+services:
+  sveltekit:
+    build: .
+    container_name: sveltekit
+    restart: on-failure
+    command: pnpm --filter sveltekit-app dev --host 0.0.0.0 # Vite only listens on localhost by default
+    env_file: sveltekit-app/.env
+    volumes:
+      - .:/app
+      - sveltekit-root-node-modules:/app/node_modules
+      - sveltekit-node-modules:/app/sveltekit-app/node_modules
+      - sveltekit-build:/app/sveltekit-app/.svelte-kit
+    ports:
+      - "5173:5173"
+
+  sanity:
+    build: .
+    container_name: sanity
+    restart: on-failure
+    command: pnpm --filter studio dev --host 0.0.0.0
+    env_file: studio/.env
+    volumes:
+      - .:/app
+      - sanity-root-node-modules:/app/node_modules
+      - sanity-node-modules:/app/studio/node_modules
+    ports:
+      - "3333:3333"
+
+volumes:
+  sveltekit-root-node-modules:
+  sveltekit-node-modules:
+  sveltekit-build:
+  sanity-root-node-modules:
+  sanity-node-modules:
