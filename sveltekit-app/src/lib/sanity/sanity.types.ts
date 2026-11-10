@@ -47,7 +47,7 @@ export type Post = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
+  title: string
   slug: Slug
   excerpt?: string
   mainImage?: {
@@ -55,6 +55,7 @@ export type Post = {
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
+    alt?: string
     _type: 'image'
   }
   body?: BlockContent
@@ -204,13 +205,14 @@ export type PostQueryResult = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title: string | null
+  title: string
   excerpt: string | null
   mainImage: {
     asset?: SanityImageAssetReference
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
+    alt?: string
     _type: 'image'
   } | null
   body: BlockContent | null
@@ -225,7 +227,7 @@ export type PostsQueryResult = Array<{
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title: string | null
+  title: string
   slug: Slug
   excerpt: string | null
   mainImage: {
@@ -233,6 +235,7 @@ export type PostsQueryResult = Array<{
     media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
+    alt?: string
     _type: 'image'
   } | null
 }>
