@@ -18,12 +18,9 @@
   },
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=sveltekit-app\" \"npm run dev --workspace=studio\"",
+    "dev": "concurrently \"pnpm --filter sveltekit-app dev\" \"pnpm --filter studio dev\"",
     "format": "prettier --cache --write .",
-    "postinstall": "npm --workspace sveltekit-app run prepare"
+    "postinstall": "pnpm --filter sveltekit-app prepare"
   },
-  "workspaces": [
-    "sveltekit-app",
-    "studio"
-  ]
+  "packageManager": "pnpm@10.34.9"
 }
