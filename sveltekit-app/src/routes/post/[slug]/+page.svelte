@@ -3,10 +3,11 @@
   import {PortableText} from '@portabletext/svelte'
   import {formatDate} from '$lib/utils'
   import {urlFor} from '$lib/sanity/image'
+  import type {PostQueryResult} from '$lib/sanity/sanity.types'
   import type {PageProps} from './$types'
 
   const {data}: PageProps = $props()
-  const query = $derived(useQuery(data))
+  const query = $derived(useQuery<PostQueryResult>(data))
   const post = $derived($query.data)
 </script>
 

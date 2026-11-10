@@ -1,9 +1,9 @@
 <script lang="ts">
   import {formatDate} from '$lib/utils'
   import {urlFor} from '$lib/sanity/image'
-  import type {Post} from '$lib/sanity/queries'
+  import type {PostsQueryResult} from '$lib/sanity/sanity.types'
 
-  export let post: Post
+  const {post}: {post: PostsQueryResult[number]} = $props()
 </script>
 
 <a class="card" href={`/post/${post.slug.current}`}>
@@ -80,7 +80,7 @@
     font-weight: 600;
     font-family: var(--font-family-sans);
     font-size: var(--font-size-1);
-    margin-top: calc(var(----space-4) + 7);
+    margin-top: calc(var(--space-4) + 7px);
   }
 
   .card:hover .card__title {

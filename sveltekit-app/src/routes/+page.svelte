@@ -2,10 +2,11 @@
   import {useQuery} from '@sanity/sveltekit'
   import Card from '../components/Card.svelte'
   import Welcome from '../components/Welcome.svelte'
+  import type {PostsQueryResult} from '$lib/sanity/sanity.types'
   import type {PageProps} from './$types'
 
   const {data}: PageProps = $props()
-  const query = $derived(useQuery(data))
+  const query = $derived(useQuery<PostsQueryResult>(data))
   const posts = $derived($query.data)
 </script>
 
