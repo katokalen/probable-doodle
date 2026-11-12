@@ -1,4 +1,5 @@
 <script lang="ts">
+  import {resolve} from '$app/paths'
   import {formatDate} from '$lib/utils'
   import {urlFor} from '$lib/sanity/image'
   import type {PostsQueryResult} from '$lib/sanity/sanity.types'
@@ -6,7 +7,7 @@
   const {post}: {post: PostsQueryResult[number]} = $props()
 </script>
 
-<a class="card" href={`/post/${post.slug.current}`}>
+<a class="card" href={resolve('/post/[slug]', {slug: post.slug.current})}>
   {#if post.mainImage}
     <img
       class="card__cover"

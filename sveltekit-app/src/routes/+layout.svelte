@@ -5,7 +5,8 @@
   import {resolve} from '$app/paths'
   import {client} from '$lib/sanity/client'
   const {children, data}: LayoutProps = $props()
-  // svelte-ignore state_referenced_locally -- previewEnabled only changes on full page reload
+  // previewEnabled only changes on full page reload
+  // svelte-ignore state_referenced_locally
   const {previewEnabled} = data
 </script>
 
@@ -26,7 +27,7 @@
 
       <div class="container">
         <header class="header">
-          <a class="header__title" href="/">SvelteKit + Sanity</a>
+          <a class="header__title" href={resolve('/')}>SvelteKit + Sanity</a>
         </header>
         <main>
           {@render children()}
