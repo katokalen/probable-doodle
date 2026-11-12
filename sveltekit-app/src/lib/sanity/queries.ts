@@ -7,6 +7,7 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
   _updatedAt,
   _rev,
   title,
+  publishedAt,
   excerpt,
   mainImage,
   body,
@@ -23,13 +24,14 @@ export const sitemapQuery = defineQuery(`*[_type == "post" && defined(slug.curre
   _updatedAt
 }`)
 
-export const postsQuery =defineQuery(`*[_type == "post" && defined(slug.current)] | order(_createdAt desc){
+export const postsQuery =defineQuery(`*[_type == "post" && defined(slug.current)] | order(publishedAt desc){
   _id,
   _type,
   _createdAt,
   _updatedAt,
   _rev,
   title,
+  publishedAt,
   slug,
   excerpt,
   mainImage

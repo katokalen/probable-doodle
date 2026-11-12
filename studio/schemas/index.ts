@@ -1,3 +1,4 @@
+import accessibleImage from './accessibleImage'
 import blockContent from './blockContent'
 import hero from './blocks/hero'
 import imageBlock from './blocks/imageBlock'
@@ -15,5 +16,6 @@ export const schemaTypes = [
   textBlock,
   imageBlock,
   seo,
+  accessibleImage,
   blockContent,
 ]

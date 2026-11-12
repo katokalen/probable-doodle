@@ -36,7 +36,7 @@
         <p class="post__excerpt">{post.excerpt}</p>
       {/if}
       <p class="post__date">
-        {formatDate(post._createdAt)}
+        {formatDate(post.publishedAt)}
       </p>
       {#if post.body}
         <div class="post__content">

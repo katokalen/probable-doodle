@@ -17,6 +17,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
+      description: 'Leave empty to use the excerpt (on posts)',
       type: 'text',
       rows: 3,
     }),

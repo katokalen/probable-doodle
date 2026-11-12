@@ -10,16 +10,8 @@ export default defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'image',
-      options: {hotspot: true},
+      type: 'accessibleImage',
       validation: (Rule) => Rule.required(),
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alternative text',
-          type: 'string',
-        }),
-      ],
     }),
     defineField({
       name: 'caption',

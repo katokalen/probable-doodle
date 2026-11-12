@@ -41,6 +41,15 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
 
+export type AccessibleImage = {
+  _type: 'accessibleImage'
+  asset?: SanityImageAssetReference
+  media?: unknown
+  hotspot?: SanityImageHotspot
+  crop?: SanityImageCrop
+  alt?: string
+}
+
 export type Seo = {
   _type: 'seo'
   title?: string
@@ -57,14 +66,7 @@ export type Seo = {
 
 export type ImageBlock = {
   _type: 'imageBlock'
-  image: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  image: AccessibleImage
   caption?: string
 }
 
@@ -77,14 +79,7 @@ export type Hero = {
   _type: 'hero'
   heading: string
   tagline?: string
-  image?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  image?: AccessibleImage
 }
 
 export type PageBuilder = Array<
@@ -108,16 +103,22 @@ export type Post = {
   title: string
   slug: Slug
   seo?: Seo
+  publishedAt: string
   excerpt?: string
-  mainImage?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  mainImage?: AccessibleImage
   body?: BlockContent
+}
+
+export type Page = {
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  seo?: Seo
+  content?: PageBuilder
 }
 
 export type SanityImageCrop = {
@@ -134,18 +135,6 @@ export type SanityImageHotspot = {
   y: number
   height: number
   width: number
-}
-
-export type Page = {
-  _id: string
-  _type: 'page'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  slug: Slug
-  seo?: Seo
-  content?: PageBuilder
 }
 
 export type Slug = {
@@ -254,15 +243,16 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
   | BlockContent
   | SanityImageAssetReference
+  | AccessibleImage
   | Seo
   | ImageBlock
   | TextBlock
   | Hero
   | PageBuilder
   | Post
+  | Page
   | SanityImageCrop
   | SanityImageHotspot
-  | Page
   | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -275,7 +265,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../sveltekit-app/src/lib/sanity/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug][0]{  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  excerpt,  mainImage,  body,  "seo": {    "title": coalesce(seo.title, title),    "description": coalesce(seo.description, excerpt),    "image": coalesce(seo.image, mainImage),    "noIndex": seo.noIndex == true  }}
+// Query: *[_type == "post" && slug.current == $slug][0]{  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  publishedAt,  excerpt,  mainImage,  body,  "seo": {    "title": coalesce(seo.title, title),    "description": coalesce(seo.description, excerpt),    "image": coalesce(seo.image, mainImage),    "noIndex": seo.noIndex == true  }}
 export type PostQueryResult = {
   _id: string
   _type: 'post'
@@ -283,28 +273,15 @@ export type PostQueryResult = {
   _updatedAt: string
   _rev: string
   title: string
+  publishedAt: string
   excerpt: string | null
-  mainImage: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  } | null
+  mainImage: AccessibleImage | null
   body: BlockContent | null
   seo: {
     title: string
     description: string | null
     image:
-      | {
-          asset?: SanityImageAssetReference
-          media?: unknown
-          hotspot?: SanityImageHotspot
-          crop?: SanityImageCrop
-          alt?: string
-          _type: 'image'
-        }
+      | AccessibleImage
       | {
           asset?: SanityImageAssetReference
           media?: unknown
@@ -327,7 +304,7 @@ export type SitemapQueryResult = Array<{
 
 // Source: ../sveltekit-app/src/lib/sanity/queries.ts
 // Variable: postsQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc){  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  slug,  excerpt,  mainImage}
+// Query: *[_type == "post" && defined(slug.current)] | order(publishedAt desc){  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  publishedAt,  slug,  excerpt,  mainImage}
 export type PostsQueryResult = Array<{
   _id: string
   _type: 'post'
@@ -335,14 +312,8 @@ export type PostsQueryResult = Array<{
   _updatedAt: string
   _rev: string
   title: string
+  publishedAt: string
   slug: Slug
   excerpt: string | null
-  mainImage: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  } | null
+  mainImage: AccessibleImage | null
 }>

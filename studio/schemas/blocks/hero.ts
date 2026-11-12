@@ -22,15 +22,7 @@ export default defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'image',
-      options: {hotspot: true},
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alternative text',
-          type: 'string',
-        }),
-      ],
+      type: 'accessibleImage',
     }),
   ],
   preview: {
