@@ -1,6 +1,7 @@
 <script lang="ts">
   import {useQuery} from '@sanity/sveltekit'
   import Card from '../components/Card.svelte'
+  import Seo from '../components/Seo.svelte'
   import Welcome from '../components/Welcome.svelte'
   import type {PostsQueryResult} from '$lib/sanity/sanity.types'
   import type {PageProps} from './$types'
@@ -9,6 +10,8 @@
   const query = $derived(useQuery<PostsQueryResult>(data))
   const posts = $derived($query.data)
 </script>
+
+<Seo />
 
 <section>
   {#if posts?.length}

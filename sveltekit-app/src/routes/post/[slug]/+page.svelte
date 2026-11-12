@@ -3,6 +3,7 @@
   import {PortableText} from '@portabletext/svelte'
   import {formatDate} from '$lib/utils'
   import {urlFor} from '$lib/sanity/image'
+  import Seo from '../../../components/Seo.svelte'
   import type {PostQueryResult} from '$lib/sanity/sanity.types'
   import type {PageProps} from './$types'
 
@@ -12,6 +13,13 @@
 </script>
 
 {#if post}
+  <Seo
+    title={post.seo.title}
+    description={post.seo.description}
+    image={post.seo.image}
+    noIndex={post.seo.noIndex}
+    type="article"
+  />
   <section class="post">
     {#if post.mainImage}
       <img
