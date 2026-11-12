@@ -15,6 +15,16 @@
 export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: schema.json
+export type MigrationInfo = {
+  _type: 'migrationInfo'
+  sourceId?: number
+  legacyUrl?: string
+  viewCount?: number
+  legacyIsPublished?: boolean
+  vimeoThumbnailUrl?: string
+  missingFiles?: Array<string>
+}
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>
@@ -94,6 +104,136 @@ export type PageBuilder = Array<
     } & ImageBlock)
 >
 
+export type ResourceAudience = {
+  _id: string
+  _type: 'resourceAudience'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  summary?: string
+  description?: string
+  order?: number
+  migration?: MigrationInfo
+}
+
+export type Slug = {
+  _type: 'slug'
+  current: string
+  source?: string
+}
+
+export type ResourceTopic = {
+  _id: string
+  _type: 'resourceTopic'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  colour?: 'light-blue' | 'turquoise' | 'blue' | 'red' | 'grey' | 'purple' | 'yellow'
+  order?: number
+  migration?: MigrationInfo
+}
+
+export type SanityFileAssetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+}
+
+export type ResourceReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'resource'
+}
+
+export type ResourceTopicReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'resourceTopic'
+}
+
+export type ResourceAudienceReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'resourceAudience'
+}
+
+export type ResourcePublisherReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'resourcePublisher'
+}
+
+export type Resource = {
+  _id: string
+  _type: 'resource'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  resourceType: 'document' | 'video' | 'presentation' | 'report' | 'website' | 'brainStoryToolkit'
+  language: 'en' | 'fr'
+  summary?: BlockContent
+  description?: BlockContent
+  author?: string
+  authorCredentials?: string
+  publishedDate?: string
+  modifiedDate?: string
+  featured?: boolean
+  showInWhatsNew?: boolean
+  image?: AccessibleImage
+  file?: {
+    asset?: SanityFileAssetReference
+    media?: unknown
+    _type: 'file'
+  }
+  externalUrl?: string
+  video?: {
+    vimeoId?: string
+    downloadUrl?: string
+    nextVideo?: ResourceReference
+  }
+  topics?: Array<
+    {
+      _key: string
+    } & ResourceTopicReference
+  >
+  audiences?: Array<
+    {
+      _key: string
+    } & ResourceAudienceReference
+  >
+  publisher?: ResourcePublisherReference
+  relatedResources?: Array<
+    {
+      _key: string
+    } & ResourceReference
+  >
+  migration?: MigrationInfo
+}
+
+export type ResourcePublisher = {
+  _id: string
+  _type: 'resourcePublisher'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  summary?: string
+  description?: string
+  migration?: MigrationInfo
+}
+
 export type Post = {
   _id: string
   _type: 'post'
@@ -135,12 +275,6 @@ export type SanityImageHotspot = {
   y: number
   height: number
   width: number
-}
-
-export type Slug = {
-  _type: 'slug'
-  current: string
-  source?: string
 }
 
 export type SanityImagePaletteSwatch = {
@@ -241,6 +375,7 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+  | MigrationInfo
   | BlockContent
   | SanityImageAssetReference
   | AccessibleImage
@@ -249,11 +384,20 @@ export type AllSanitySchemaTypes =
   | TextBlock
   | Hero
   | PageBuilder
+  | ResourceAudience
+  | Slug
+  | ResourceTopic
+  | SanityFileAssetReference
+  | ResourceReference
+  | ResourceTopicReference
+  | ResourceAudienceReference
+  | ResourcePublisherReference
+  | Resource
+  | ResourcePublisher
   | Post
   | Page
   | SanityImageCrop
   | SanityImageHotspot
-  | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

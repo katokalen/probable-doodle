@@ -24,8 +24,13 @@
     "styled-components": "^6.3.8"
   },
   "devDependencies": {
+    "@portabletext/block-tools": "^6.0.7",
+    "@sanity/schema": "6.23.0",
+    "@types/jsdom": "^30.0.0",
     "@types/node": "^25.1.0",
     "@types/react": "^19.2.10",
+    "jsdom": "^31.0.0",
+    "mysql2": "^3.24.6",
     "typescript": "^5.9.3"
   }
 }

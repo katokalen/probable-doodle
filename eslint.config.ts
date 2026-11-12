@@ -80,6 +80,14 @@ export default defineConfig(
       '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
+  // One-off migration scripts run from the terminal and read untyped SQL rows
+  {
+    files: ['studio/migrations/**'],
+    rules: {
+      'no-console': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 
   // Keep last
   prettier,
