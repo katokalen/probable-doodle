@@ -1,28 +1,15 @@
 import {DocumentTextIcon} from '@sanity/icons/DocumentText'
 import {defineField, defineType} from 'sanity'
 
+import {pageFields} from './shared/pageFields'
+
 export default defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
   icon: DocumentTextIcon,
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      validation: (Rule) => Rule.required(),
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    }),
+    ...pageFields,
     defineField({
       name: 'excerpt',
       title: 'Excerpt',

@@ -41,6 +41,64 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
 
+export type Seo = {
+  _type: 'seo'
+  title?: string
+  description?: string
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  noIndex?: boolean
+}
+
+export type ImageBlock = {
+  _type: 'imageBlock'
+  image: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  caption?: string
+}
+
+export type TextBlock = {
+  _type: 'textBlock'
+  body?: BlockContent
+}
+
+export type Hero = {
+  _type: 'hero'
+  heading: string
+  tagline?: string
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+}
+
+export type PageBuilder = Array<
+  | ({
+      _key: string
+    } & Hero)
+  | ({
+      _key: string
+    } & TextBlock)
+  | ({
+      _key: string
+    } & ImageBlock)
+>
+
 export type Post = {
   _id: string
   _type: 'post'
@@ -49,6 +107,7 @@ export type Post = {
   _rev: string
   title: string
   slug: Slug
+  seo?: Seo
   excerpt?: string
   mainImage?: {
     asset?: SanityImageAssetReference
@@ -75,6 +134,18 @@ export type SanityImageHotspot = {
   y: number
   height: number
   width: number
+}
+
+export type Page = {
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  seo?: Seo
+  content?: PageBuilder
 }
 
 export type Slug = {
@@ -183,9 +254,15 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
   | BlockContent
   | SanityImageAssetReference
+  | Seo
+  | ImageBlock
+  | TextBlock
+  | Hero
+  | PageBuilder
   | Post
   | SanityImageCrop
   | SanityImageHotspot
+  | Page
   | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
