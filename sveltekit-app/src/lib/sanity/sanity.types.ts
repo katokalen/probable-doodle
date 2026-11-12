@@ -295,8 +295,52 @@ export type PostQueryResult = {
 } | null
 
 // Source: ../sveltekit-app/src/lib/sanity/queries.ts
+// Variable: pageQuery
+// Query: *[_type == "page" && slug.current == $slug][0]{  _id,  _type,  _createdAt,  _updatedAt,  _rev,  title,  content[]{    _key,    _type,    _type == "hero" => {heading, tagline, image},    _type == "textBlock" => {body},    _type == "imageBlock" => {image, caption}  },  "seo": {    "title": coalesce(seo.title, title),    "description": seo.description,    "image": seo.image,    "noIndex": seo.noIndex == true  }}
+export type PageQueryResult = {
+  _id: string
+  _type: 'page'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  content: Array<
+    | {
+        _key: string
+        _type: 'hero'
+        heading: string
+        tagline: string | null
+        image: AccessibleImage | null
+      }
+    | {
+        _key: string
+        _type: 'imageBlock'
+        image: AccessibleImage
+        caption: string | null
+      }
+    | {
+        _key: string
+        _type: 'textBlock'
+        body: BlockContent | null
+      }
+  > | null
+  seo: {
+    title: string
+    description: string | null
+    image: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    } | null
+    noIndex: boolean | false
+  }
+} | null
+
+// Source: ../sveltekit-app/src/lib/sanity/queries.ts
 // Variable: sitemapQuery
-// Query: *[_type == "post" && defined(slug.current) && seo.noIndex != true]{  "path": "/post/" + slug.current,  _updatedAt}
+// Query: *[_type in ["post", "page"] && defined(slug.current) && seo.noIndex != true]{  "path": select(_type == "post" => "/post/", "/") + slug.current,  _updatedAt}
 export type SitemapQueryResult = Array<{
   path: string
   _updatedAt: string
